@@ -17,3 +17,58 @@ https://cassandra.apache.org/doc/stable/cassandra/getting_started/installing.htm
 - Step 3: `docker exec -it learn-cassandra.install cqlsh`
   - Or download DbVisualizer from
     [https://www.dbvis.com/download/](https://www.dbvis.com/download/)
+
+## Ubuntu
+
+...
+
+## Test Installation
+
+Connect to the instance and create a sample keyspace (which is to Cassandra what
+schema or a database is to an RDBMS).
+
+```cql
+CREATE KEYSPACE my_keyspace WITH
+  replication = {
+    'class': 'SimpleStrategy',
+    'replication_factor': 1
+  }
+;
+```
+
+Switch to that keyspace by `USE my_keyspace;`.
+
+Create a table as below;
+
+```cql
+CREATE TABLE user (
+  first_name text,
+  last_name text,
+  PRIMARY KEY (first_name)
+);
+```
+
+Insert and select a record just like in a SQL database;
+
+```cql
+INSERT
+  INTO user (first_name, last_name)
+  VALUES ('John', 'Doe');
+
+SELECT * FROM user WHERE first_name='John';
+```
+
+It allows you to delete a column;
+
+```cql
+DELETE last_name
+FROM user
+WHERE first_name='John';
+```
+
+You can also delete a row as you do in SQL;
+
+```cql
+DELETE FROM user
+WHERE first_name='John';
+```
